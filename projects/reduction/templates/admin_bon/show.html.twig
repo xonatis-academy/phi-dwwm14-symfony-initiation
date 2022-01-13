@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bon{% endblock %}
+
+{% block body %}
+    <h1>Bon</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bon.id }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ bon.code }}</td>
+            </tr>
+            <tr>
+                <th>Percent</th>
+                <td>{{ bon.percent }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_bon_index') }}">back to list</a>
+
+    <a href="{{ path('admin_bon_edit', {'id': bon.id}) }}">edit</a>
+
+    {{ include('admin_bon/_delete_form.html.twig') }}
+{% endblock %}

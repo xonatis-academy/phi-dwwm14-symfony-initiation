@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Yes!{% endblock %}
+
+{% block body %}
+
+Nous avons bien recu votre formulaire.
+
+Produit : {{ produit }} <br />
+Prix initial : {{ initial }} euros<br />
+Pourcentage de réduction : {{ percent }} %<br />
+Prix final : {{ final }} euros
+
+{% endblock %}
