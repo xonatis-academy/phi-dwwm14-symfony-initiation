@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ReductionType;
+use App\Service\ReductionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/accueil", name="home")
      */
-    public function index(Request $request): Response
+    public function index(Request $request, ReductionService $david): Response
     {
         $formulaire = $this->createForm(ReductionType::class);
         $formulaire->handleRequest($request);
@@ -23,7 +24,8 @@ class HomeController extends AbstractController
             $nom = $data['nomProduit'];
             $prix = $data['prixInitial'];
             $percent = $data['pourcentageReduction'];
-            $final = $prix * (100 - $percent) / 100;
+
+            $final = $david->calculer($prix, $percent);
 
             return $this->render('home/success.html.twig', [
                 'produit' => $nom,
