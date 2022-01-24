@@ -28,12 +28,12 @@ class AdminBonController extends AbstractController
     /**
      * @Route("/", name="admin_bon_index", methods={"GET"})
      */
-    public function index(BonRepository $bonRepository): Response
+    public function index(BonRepository $toto): Response
     {
         // Affiche la vue 'admin_bon/index.html.twig' avec une variable TWIG 'bons'
         // qui pointe vers la liste de tous les bons en base de données
         return $this->render('admin_bon/index.html.twig', [
-            'bons' => $bonRepository->findAll(),
+            'bons' => $toto->findAll(),
         ]);
     }
 

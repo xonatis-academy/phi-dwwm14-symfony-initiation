@@ -4,8 +4,16 @@
 
 {% block body %}
 
-Entrez un produit, un prix et une réduction :
+<img alt="banner" class="w-100" src="{{ asset('images/sales.jpg') }}" />
 
-{{ form(formi) }}
+<h1><i class="fas fa-check"></i> Entrez un produit, un prix et une réduction :</h1>
+
+{{ form_start(formi) }}
+    Nom produit :
+    {{ form_widget(formi.nomProduit, {'attr': {'placeholder': 'Veuillez entrer le nom du produit ...', 'class': 'text-dark'}}) }}
+    {{ form_row(formi.prixInitial) }}
+    {{ form_row(formi.pourcentageReduction) }}
+    {{ form_row(formi.valider, {'attr': {'class': 'btn-success'}}) }}
+{{ form_end(formi) }}
 
 {% endblock %}
