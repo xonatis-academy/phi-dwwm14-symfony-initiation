@@ -27,6 +27,11 @@ class Bon
      */
     private $percent;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageFilename;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -40,7 +45,6 @@ class Bon
     public function setCode(string $code): self
     {
         $this->code = $code;
-
         return $this;
     }
 
@@ -52,6 +56,18 @@ class Bon
     public function setPercent(float $percent): self
     {
         $this->percent = $percent;
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(?string $imageFilename): self
+    {
+        $this->imageFilename = $imageFilename;
 
         return $this;
     }

@@ -9,6 +9,7 @@ use App\Entity\Bon;
 use App\Form\BonType;
 // on utilise BonRepository pour récupérer la liste et pour afficher le détail d'un Bon
 use App\Repository\BonRepository;
+use App\Service\FileUploader;
 // on utilise EntityManager pour ajouter un Bon, modifier un Bon et supprimer un Bon
 use Doctrine\ORM\EntityManagerInterface;
 // on utilise AbstractController pour les méthodes héritées : par exemple, render, renderForm, createForm etc.
@@ -40,7 +41,7 @@ class AdminBonController extends AbstractController
     /**
      * @Route("/new", name="admin_bon_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $david): Response
     {
         // on instantie en mémoire un espace qui a la structure de Bon et qui est vide
         $bon = new Bon();
@@ -52,6 +53,13 @@ class AdminBonController extends AbstractController
 
         // si le formulaire trouve des données dans $request et si les données ont l'air valides
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $imageFilename = $david->upload($imageFile);
+                $bon->setImageFilename($imageFilename);
+            }
+
             // on demande à l'objet $entityManager de sauvegarder $bon en base de données
             $entityManager->persist($bon);
             // on *valide* la demande *une fois pour toute*
@@ -84,7 +92,7 @@ class AdminBonController extends AbstractController
     /**
      * @Route("/{id}/edit", name="admin_bon_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Bon $bon, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Bon $bon, EntityManagerInterface $entityManager, FileUploader $david): Response
     {
         // création de du formulaire $form à partir du modele BonType pour remplir $bon
         $form = $this->createForm(BonType::class, $bon);
@@ -93,6 +101,13 @@ class AdminBonController extends AbstractController
 
         // le formulaire regarde si des données ont été soumises et si les données ont l'air valides
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $imageFilename = $david->upload($imageFile);
+                $bon->setImageFilename($imageFilename);
+            }
+
             // on valide les changements une fois pour toute
             $entityManager->flush();
             // on redirige le navigateur vers la route de nom interne admin_bon_index

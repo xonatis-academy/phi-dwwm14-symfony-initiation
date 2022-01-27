@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ContactType;
 use App\Service\EmailService;
+use App\Service\RememberService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +15,10 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function index(Request $request, EmailService $david): Response
+    public function index(Request $request, EmailService $david, RememberService $bertrand): Response
     {
         $contact = $this->createForm(ContactType::class, [
-            'email' => 'michael@xonatis.com'
+            'email' => $bertrand->donneMoi('emailSaisi')
         ]);
         $contact->handleRequest($request);
 
@@ -27,6 +28,8 @@ class ContactController extends AbstractController
             $administrateur = 'admin@mon-super-site.com';
             $subject = $donnees['objet'];
             $message = $donnees['message'];
+
+            $bertrand->seSouvenir('emailSaisi', $visiteur);
 
             // 1. Le mail de contact du visiteur -> administrateur
             $david->envoyer($visiteur, $administrateur, $subject, 'emails/contact.html.twig', [

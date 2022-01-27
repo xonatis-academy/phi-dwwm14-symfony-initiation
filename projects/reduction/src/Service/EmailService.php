@@ -7,8 +7,11 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class EmailService {
 
+    // PROPRIETE : a pour but de contenir quelque chose (valeur primaire, int, float, string etc. ou bien un objet)
+    // Caractéristiques
     private $coeur;
 
+    // CONSTRUCTEUR
     public function __construct(MailerInterface $mailer)
     {
         // On met l'objet MailerInterface (qui s'appelle ici $mailer pour des raisons d'explication)
@@ -17,6 +20,8 @@ class EmailService {
         $this->coeur = $mailer;
     }
 
+    // METHODE : a pour but de faire quelque chose (traitement) et retourner un résultat (sauf void)
+    // Comportements
     public function envoyer(string $expediteur, string $destinataire, string $objet, string $path, array $variables): void {
 
         $email = new TemplatedEmail();

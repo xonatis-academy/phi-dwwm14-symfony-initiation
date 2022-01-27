@@ -2,15 +2,15 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class RememberService {
 
     private $coeur;
 
-    public function __construct(SessionInterface $sessionInterface)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->coeur = $sessionInterface;
+        $this->coeur = $requestStack->getSession();
     }
 
     public function seSouvenir(string $nom, string $valeur): void {

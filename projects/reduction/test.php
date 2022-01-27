@@ -1,11 +1,30 @@
 <?php
 
-// avant PHP 7
-// une fonction pour additionner 2 nombres
-function additionner($a, $b) {
-    return $a + $b;
+class Cervelle {
+
 }
 
-function additionner2(float $a, float $b): float {
-    return $a + $b;
+class Robot {
+
+    private $cerveau;
+
+    public function __construct(Cervelle $cervelle)
+    {
+        $this->cerveau = $cervelle;
+    }
+
+    public function marcher() {
+        // déplacer ses ($this) jambes
+        // $this->jambes->deplacer();
+    }
+
 }
+
+
+$obj1 = new Cervelle();
+$obj2 = new Robot($obj1);
+
+$obj2->marcher();
+
+$obj3 = new Robot($obj1);
+$obj3->marcher();

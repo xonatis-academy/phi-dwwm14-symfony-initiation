@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Bon;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,6 +15,9 @@ class BonType extends AbstractType
         $builder
             ->add('code')
             ->add('percent')
+            ->add('image', FileType::class, [
+                'mapped' => false
+            ])
         ;
     }
 
